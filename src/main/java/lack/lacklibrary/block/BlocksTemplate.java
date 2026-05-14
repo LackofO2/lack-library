@@ -21,89 +21,89 @@ public abstract class BlocksTemplate extends DefaultTemplate {
         return ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(getModId(), name));
     }
 
-    protected Block register(final String id, final BlockBehaviour.Properties properties) {
+    public Block register(final String id, final BlockBehaviour.Properties properties) {
         return register(id, Block::new, properties);
     }
 
-    protected Block register(final String id, final Function<BlockBehaviour.Properties, Block> factory, final BlockBehaviour.Properties properties) {
+    public Block register(final String id, final Function<BlockBehaviour.Properties, Block> factory, final BlockBehaviour.Properties properties) {
         return register(blockId(id), factory, properties);
     }
 
-    private Block register(final ResourceKey<@NotNull Block> id, final BlockBehaviour.Properties properties) {
+    public Block register(final ResourceKey<@NotNull Block> id, final BlockBehaviour.Properties properties) {
         return register(id, Block::new, properties);
     }
 
-    private Block register(final ResourceKey<@NotNull Block> id, final Function<BlockBehaviour.Properties, Block> factory, final BlockBehaviour.Properties properties) {
+    public Block register(final ResourceKey<@NotNull Block> id, final Function<BlockBehaviour.Properties, Block> factory, final BlockBehaviour.Properties properties) {
         Block block = factory.apply(properties.setId(id));
         return Registry.register(BuiltInRegistries.BLOCK, id, block);
     }
 
 
-    protected Block registerStairs(final String id, final Block base) {
+    public Block registerStairs(final String id, final Block base) {
         return registerStairs(id, base, BlockBehaviour.Properties.ofFullCopy(base));
     }
 
-    protected Block registerStairs(final String id, final Block base, final BlockBehaviour.Properties properties) {
+    public Block registerStairs(final String id, final Block base, final BlockBehaviour.Properties properties) {
         return register(id, (p) -> new StairBlock(base.defaultBlockState(), p), properties);
     }
 
-    protected Block registerSlab(final String id, final Block base) {
+    public Block registerSlab(final String id, final Block base) {
         return registerSlab(id, BlockBehaviour.Properties.ofFullCopy(base));
     }
 
-    protected Block registerSlab(final String id, final BlockBehaviour.Properties properties) {
+    public Block registerSlab(final String id, final BlockBehaviour.Properties properties) {
         return register(id, SlabBlock::new, properties);
     }
 
-    protected Block registerWall(final String id, final Block base) {
+    public Block registerWall(final String id, final Block base) {
         return registerWall(id, BlockBehaviour.Properties.ofFullCopy(base));
     }
 
-    protected Block registerWall(final String id, final BlockBehaviour.Properties properties) {
+    public Block registerWall(final String id, final BlockBehaviour.Properties properties) {
         return register(id, WallBlock::new, properties);
     }
 
-    protected Block registerFence(final String id, final Block base) {
+    public Block registerFence(final String id, final Block base) {
         return registerFence(id, BlockBehaviour.Properties.ofFullCopy(base));
     }
 
-    protected Block registerFence(final String id, final BlockBehaviour.Properties properties) {
+    public Block registerFence(final String id, final BlockBehaviour.Properties properties) {
         return register(id, FenceBlock::new, properties);
     }
 
-    protected Block registerFenceGate(final String id, WoodType woodType, final Block base) {
+    public Block registerFenceGate(final String id, WoodType woodType, final Block base) {
         return registerFenceGate(id, woodType, BlockBehaviour.Properties.ofFullCopy(base));
     }
 
-    protected Block registerFenceGate(final String id, WoodType woodType, final BlockBehaviour.Properties properties) {
+    public Block registerFenceGate(final String id, WoodType woodType, final BlockBehaviour.Properties properties) {
         return register(id, (p) -> new FenceGateBlock(woodType, p), properties);
     }
 
-    protected Block registerDoor(final String id, BlockSetType blockSetType, final Block base) {
+    public Block registerDoor(final String id, BlockSetType blockSetType, final Block base) {
         return registerDoor(id, blockSetType, BlockBehaviour.Properties.ofFullCopy(base).noOcclusion().pushReaction(PushReaction.DESTROY));
     }
 
-    protected Block registerDoor(final String id, BlockSetType blockSetType, final BlockBehaviour.Properties properties) {
+    public Block registerDoor(final String id, BlockSetType blockSetType, final BlockBehaviour.Properties properties) {
         return register(id, (p) -> new DoorBlock(blockSetType, p), properties);
     }
 
-    protected Block registerTrapdoor(final String id, BlockSetType blockSetType, final Block base) {
+    public Block registerTrapdoor(final String id, BlockSetType blockSetType, final Block base) {
         return registerTrapdoor(id, blockSetType, BlockBehaviour.Properties.ofFullCopy(base).noOcclusion().isValidSpawn(Blocks::never));
     }
 
-    protected Block registerTrapdoor(final String id, BlockSetType blockSetType, final BlockBehaviour.Properties properties) {
+    public Block registerTrapdoor(final String id, BlockSetType blockSetType, final BlockBehaviour.Properties properties) {
         return register(id, (p) -> new TrapDoorBlock(blockSetType, p), properties);
     }
 
-    protected Block registerButton(final String id, int ticksToStayPressed, BlockSetType blockSetType) {
+    public Block registerButton(final String id, int ticksToStayPressed, BlockSetType blockSetType) {
         return register(id, (p) -> new ButtonBlock(blockSetType, ticksToStayPressed, p), Blocks.buttonProperties());
     }
 
-    protected Block registerPressurePlate(final String id, BlockSetType blockSetType, final Block base, float strength) {
+    public Block registerPressurePlate(final String id, BlockSetType blockSetType, final Block base, float strength) {
         return registerPressurePlate(id, blockSetType, BlockBehaviour.Properties.ofFullCopy(base).forceSolidOn().strength(strength).noCollision().pushReaction(PushReaction.DESTROY));
     }
 
-    protected Block registerPressurePlate(final String id, BlockSetType blockSetType, final BlockBehaviour.Properties properties) {
+    public Block registerPressurePlate(final String id, BlockSetType blockSetType, final BlockBehaviour.Properties properties) {
         return register(id, (p) -> new PressurePlateBlock(blockSetType, p), properties);
     }
 

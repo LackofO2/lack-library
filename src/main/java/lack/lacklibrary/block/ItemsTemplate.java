@@ -25,29 +25,29 @@ public abstract class ItemsTemplate extends DefaultTemplate {
     }
 
 
-    private Item registerBlockItem(final Block block) {
+    public Item registerBlockItem(final Block block) {
         return registerBlockItem(block, BlockItem::new);
     }
 
-    private Item registerBlockItem(final Block block, final BiFunction<Block, Item.Properties, Item> itemFactory) {
+    public Item registerBlockItem(final Block block, final BiFunction<Block, Item.Properties, Item> itemFactory) {
         return registerBlockItem(block, itemFactory, new Item.Properties());
     }
 
-    private Item registerBlockItem(final Block block, final BiFunction<Block, Item.Properties, Item> itemFactory, final Item.Properties properties) {
+    public Item registerBlockItem(final Block block, final BiFunction<Block, Item.Properties, Item> itemFactory, final Item.Properties properties) {
         return registerItem(blockIdToItemId(block.builtInRegistryHolder().key()), (p) -> itemFactory.apply(block, p), properties.useBlockDescriptionPrefix().requiredFeatures(block.requiredFeatures()));
     }
 
 
-    private Item registerItem(final String name, final Item.Properties properties) {
+    public Item registerItem(final String name, final Item.Properties properties) {
         return registerItem(itemId(name), Item::new, properties);
     }
 
-    private Item registerItem(final String name) {
+    public Item registerItem(final String name) {
         return registerItem(itemId(name), Item::new, new Item.Properties());
     }
 
 
-    private Item registerItem(final ResourceKey<@NotNull Item> key, final Function<Item.Properties, Item> itemFactory, final Item.Properties properties) {
+    public Item registerItem(final ResourceKey<@NotNull Item> key, final Function<Item.Properties, Item> itemFactory, final Item.Properties properties) {
         Item item = itemFactory.apply(properties.setId(key));
         if (item instanceof BlockItem blockItem) {
             blockItem.registerBlocks(Item.BY_BLOCK, item);
